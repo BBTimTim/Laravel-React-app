@@ -1,0 +1,149 @@
+@import 'bootstrap/dist/css/bootstrap.css';
+
+.logo{
+    width: 50px;
+    cursor: pointer;
+}
+
+.navbar{
+    transition: 0.5s;
+    border-bottom: 3px solid transparent;
+}
+
+.navbar .nav-link{
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.navbar li:hover{
+    border-bottom: 3px solid rgb(148, 0, 193);
+}
+
+.navbar li:active{
+    border-bottom: 3px solid rgb(148, 0, 193);
+}
+
+.dropdown-menu .dropdown-item:hover{
+    color: rgb(148, 0, 193);
+    background-color: #efefef;
+}
+
+.navbar.dark li:hover{
+    border-bottom: 3px solid rgb(215, 156, 255);
+}
+
+.navbar.dark li:active{
+    border-bottom: 3px solid  rgb(215, 156, 255);
+}
+
+.logo-title{
+    cursor: pointer;
+    text-align: center;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+ }
+
+  .title-1{
+   font-size: 25px;
+   font-weight: 100;
+   line-height: 30px;
+ }
+ 
+.title-2{
+     font-size: 14px;
+     letter-spacing: 1.5px;
+     line-height: 10px;
+   }
+
+ .toggle-icon{
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    margin-left: 40px;
+ }
+
+.wrapper.dark {
+    background: #222222;
+    color: rgb(255, 255, 255);
+    transition: 0.5s;
+  }
+
+  .wrapper.light {
+    background: #efefef;
+    color: #000;
+    transition: 0.5s;
+  }
+
+  .wrapper{
+    width: 100vw;
+    height: 100vh;
+    transition: 0.5s;
+  }
+
+ .navbar.light {
+    background-color: #ffffff;
+    color: #000;
+  }
+  
+ .navbar.dark {
+    background-color: #303030;
+    color: #ffffff;
+  }
+
+  .navbar.dark .nav-link {
+    color: #fff;
+  }
+  
+  .navbar.light .nav-link {
+    color: #000;
+  }
+
+
+.navbar.light .nav-link:hover{
+  color: rgb(148, 0, 193);
+}
+
+.navbar.dark .nav-link:hover{
+    color: rgb(215, 156, 255);
+  }
+
+  .search-box{
+    display: flex;
+    align-items: center;
+    background: #2a2a2a;
+    padding: 5px 15px;
+    border-radius: 50px;
+}
+
+.search-box input{
+    background: transparent;
+    border: 0;
+    outline: 0;
+    color: #fff;
+    font-size: 16px;
+    max-width: 200px;
+}
+
+.search-box input::placeholder{
+    color: #fff;
+}
+
+.search-box img{
+    width: 20px;
+    cursor: pointer;
+}
+
+
+ .dark .search-box {
+    background: #ffffff;
+} 
+
+.dark .search-box input{
+    color: #2a2633;
+}
+
+.dark .search-box input::placeholder{
+    color: #222;
+} 
+
