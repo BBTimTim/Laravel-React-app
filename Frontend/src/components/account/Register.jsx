@@ -1,7 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import config from '../Config';
+import config from '../../config';
+import { Link } from 'react-router-dom';
 
 const { api_url } = config;
 
@@ -48,7 +49,8 @@ const Register = () => {
             const response = await fetch(`${api_url}/register`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json', 
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify(register),
             });
@@ -70,7 +72,7 @@ const Register = () => {
 }
 
     return (
-        <>{loading ? <>Loading...</> : <div className='container'>
+        <>{loading ? <><p className='loading'>Loading...</p></> : <div className='container'>
             <h1 className='mt-5 text-center'>Regisztráció</h1>
              { success && <div className='alert alert-success col-sm-6 mx-auto'>
                     {success}
@@ -112,6 +114,7 @@ const Register = () => {
                             onChange={handleChange}
                             />
                     <button className='btn btn-outline-secondary mt-4 reg-btn' type='submit'>Regisztráció</button>
+                     <Link className='text-center' to="/login">Már van regisztrált fiókod? Lépj be!</Link>
                     </div>
                     </form>
              </div>} </>

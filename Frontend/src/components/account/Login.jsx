@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import config from '../Config';
+import config from '../../config';
 
 const { api_url } = config;
 
@@ -28,7 +28,8 @@ const Login = () => {
             }
             fetch(`${api_url}/user`, {
                 headers: {
-                   'Authorization': `Bearer ${token}`
+                   'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/json'
                 }
               }).then(res => {
                    if(res.ok) {
@@ -73,7 +74,7 @@ const Login = () => {
 }
 
     return (
-        <>{loading ? <>Loading...</> :  <div className='container'>
+        <>{loading ? <><p className='loading'>Loading...</p></> :  <div className='container'>
             <h1 className='mt-5 text-center'>Belépés</h1>
                     {errors && <div className='alert alert-danger col-sm-6 mx-auto'>
                         {errors}
@@ -83,7 +84,7 @@ const Login = () => {
                                 <input type="text" name='email' className='form-control' placeholder='Add meg az email címed' onChange={handleChange}/>
                                 <input type="password" name='password' className='form-control' placeholder='Add meg a jelszavad' onChange={handleChange}/>
                                 <button className='btn btn-outline-secondary mt-4' type='submit'>Belépés</button>
-                                <Link className='text-center' to="">Elfelejtett jelszó</Link>
+                                <Link className='text-center' to="/forgetpassword">Elfelejtett jelszó</Link>
                             </div>
                     </form>
             </div> } </>

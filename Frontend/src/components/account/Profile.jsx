@@ -2,19 +2,25 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import config from '../Config';
+import config from '../../config';
 
 const { api_url } = config;
 
 const Profile = () => {
-    const [user, setUser] = useState(null);
-//azért kell useeffect, mert a React komponens betöltődése után kell lefuttatni
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-        fetch(`${api_url}/user`, {
+    const token = localStorage.getItem('token');
+
+    if(!token) {
+      navigate('/login');
+      return;
+    }
+      fetch(`${api_url}/user`, {
             headers: {
-               'Authorization': `Bearer `+localStorage.getItem('token')
+               'Authorization':`Bearer ${token}`,
+                'Accept': 'application/json'
             }
           }).then(res => {
                if(!res.ok) {
@@ -22,8 +28,8 @@ const Profile = () => {
           } 
           return res.json()
         }  )
-        .then(res => {
-          setUser( res )
+        .then(data => {
+          setUser( data )
         } )
         }, [navigate])
     
@@ -32,7 +38,7 @@ const Profile = () => {
         { user !== null ?  <div className="row gy-3 b-flex justify-content-center">
        <h2 className="text-center mt-5">Üdvözöllek az oldalon {user.name}!</h2>  
         <Link className='text-center' to="/updatedata">Adataim módosítása</Link>
-      </div> : 'Loading...'}
+      </div> : <p className='loading'>Loading...</p>}
     </div>
     );
 } 

@@ -19,17 +19,11 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:5173',
-                            'http://codiva.fejlessz.hu'],
+    'allowed_origins' => ['http://localhost:5173', 'http://codessence.nhely.hu', 'http://codiva.fejlessz.hu'],
 
     'allowed_origins_patterns' => [],
 
-    'allowed_headers' => [
-    'Content-Type',
-    'Authorization',
-    'X-Requested-With',
-    'Accept',
-    ],
+    'allowed_headers' => ['*'],
 
     'exposed_headers' => [],
 

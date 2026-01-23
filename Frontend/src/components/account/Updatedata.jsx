@@ -1,13 +1,13 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import config from '../Config';
+import config from '../../config';
 
 const { api_url } = config;
 
-const UpdateData = () => {
+const Updatedata = () => {
 
-         const [updateData, setUpdateData] = useState({   
+         const [updatedata, setUpdatedata] = useState({   
             name: '',
             email: '',
             password:'',
@@ -19,13 +19,13 @@ const UpdateData = () => {
           const navigate = useNavigate();
        
           const handleChange = e => {
-              setUpdateData({...updateData, [e.target.name]: e.target.value})
+              setUpdatedata({...updatedata, [e.target.name]: e.target.value})
           }
 
   useEffect(() => {
         fetch(`${api_url}/user`, {
             headers: {
-               'Authorization': `Bearer `+localStorage.getItem('token')
+               'Authorization': `Bearer `+localStorage.getItem('token'),
             }
           }).then(res => {
                if(!res.ok) {
@@ -33,40 +33,36 @@ const UpdateData = () => {
           } 
           return res.json()
         }  )
-        .then(res => {
-          setUser( res )
+            .then(res => {
+            setUser(res);
+            setUpdatedata({
+                name: res.name,
+                email: res.email,
+                password: '',
+                password_confirmation: ''
+            });
         } )
         }, [navigate])
- 
-        useEffect(() => {
-            if (user) {
-                setUpdateData({
-                    name: user.name,
-                    email: user.email,
-                    password: '',
-                    password_confirmation: ''
-                });
-            }
-        }, [user]);
+
 
         const handleFocus = e => {
             const name = e.target.name;
-            if (updateData[name] === user[name]) {
-              setUpdateData(prev => ({ ...prev, [name]: '' })); 
+            if (updatedata[name] === user[name]) {
+              setUpdatedata(prev => ({ ...prev, [name]: '' })); 
             } 
           };
           
         const handleSubmit = async (e) => {
             e.preventDefault();
             try{
-                const response = await fetch(`${api_url}/updateData`, {
+                const response = await fetch(`${api_url}/updatedata`, {
                 method: 'PATCH',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer `+localStorage.getItem('token')
                 },
-                body: JSON.stringify(updateData),
+                body: JSON.stringify(updatedata),
             })
             const result = await response.json();
 
@@ -110,7 +106,7 @@ const UpdateData = () => {
                               className='form-control'
                               placeholder='Add meg a neved'
                               onChange={handleChange}
-                              value={updateData.name}
+                              value={updatedata.name}
                               onFocus={handleFocus}
                               />
                                  
@@ -119,7 +115,7 @@ const UpdateData = () => {
                               className='form-control'
                               placeholder='Add meg az email címed'
                               onChange={handleChange}
-                              value={updateData.email}
+                              value={updatedata.email}
                               onFocus={handleFocus}
                                />
                       
@@ -128,7 +124,7 @@ const UpdateData = () => {
                               className='form-control'
                               placeholder='Add meg a jelszavad'
                               onChange={handleChange}
-                              value={updateData.password}
+                              value={updatedata.password}
                               />
                       
                       <input type="password"
@@ -136,13 +132,13 @@ const UpdateData = () => {
                               className='form-control'
                               placeholder='Add meg a jelszavad újra'
                               onChange={handleChange}
-                              value={updateData.password_confirmation}
+                              value={updatedata.password_confirmation}
                               />
                       <button className='btn btn-outline-secondary mt-4 reg-btn' type='submit'>Adatmódosítás!</button>
                       </div>
                       </form>
-               </div> : 'Loading...'}</> 
+               </div> : <p className='loading'>Loading...</p>}</> 
           );
 }
 
-export default UpdateData;
+export default Updatedata;

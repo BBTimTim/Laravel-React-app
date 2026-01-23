@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import config from '../../config';
 
+const { api_url } = config;
 /* const Users = () => {
     const [usersList, SetUsersList] = useState([])
 
@@ -9,13 +11,13 @@ import React, { useEffect, useState } from 'react';
         .then(res => SetUsersList(res))
     }, [])
  */
-    const Users = () => {
+    const User = () => {
         const [usersList, SetUsersList] = useState([]);
         const [loading, setLoading] = useState(true);
         const [error, setError] = useState(null);
     
         useEffect(() => {
-            fetch('/api/users')
+          fetch(`${api_url}/user`)
             .then(res => {
                 if(!res.ok) {
                     throw new Error('Hálózati hiba');
@@ -32,7 +34,7 @@ import React, { useEffect, useState } from 'react';
               });
         }, [])
     
-        if (loading) return <div>Betöltés...</div>;
+        if (loading) return <div className='loading'>Loading...</div>;
         if (error) return <div>Error: {error.message}</div>;
 
     return (
@@ -46,4 +48,4 @@ import React, { useEffect, useState } from 'react';
     );
 }
 
-export default Users;
+export default User;

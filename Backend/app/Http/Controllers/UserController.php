@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Mail;
 use App\Models\User;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
-  public function updateData(Request $request)
-  {
+  public function updatedata(Request $request) {
       $user = $request->user();
       try {
           $validated = $request->validate([
@@ -35,7 +31,7 @@ class UserController extends Controller
       }
       $user->fill($dataToUpdate); //feltölti a modellt de nem ment
       
-      // Ha semmi nem változott → hibaüzenet
+      // Ha semmi nem változott → hibaüzene
       if (!$user->isDirty()) {
         return response()->json([
           'errors' => ['Az adatok nem változtak.'] 
@@ -46,45 +42,9 @@ class UserController extends Controller
       return response()->json(['success' => 'Sikeres adatmódosítás!']);
   }
   
-
-    function logOut(Request $request) {
+   public function logout(Request $request) {
       $request->user()->currentAccessToken()->delete();
      return response()->noContent();
     }
- 
 
-  }
-   /*  public function forgotpassword(Request $request)
-    {
-        $email = $request->email; //eltároljuk az emailt
-        $user = User::where('email', $request->email)->first();
-        if($user){
-            $password = Str::random(10); //random jelszó
-            Mail::send([],[],function($message) use($email, $password){
-                $message->to($email)
-                        ->subject("Reset Password")
-                        ->html("<p>Tour New Password is</p><br/>".$password);
-            });
-            User::where('email', $email)->update(['password'=>Hash::make($password)]);
-            return response(['status'=>'success','message'=>'New Password send in your email']);
-        }else{
-            return response(['status'=>'error','message'=>'User Not Found']);
-        }
-    } */
-
-    /* function forgotPassword(Request $request) {
-      $request ->validate(['email' => 'required|email']);
-
-      $status = Password::sendResetLink(
-        $request->only('email')
-      );
-
-      return $status === Password::RESET_LINK_SENT
-      ? response() ->json([
-        'message'=> trans($status),
-      ])
-      : response()->json([
-        "message" => trans($status),
-      ], 400)
-    }
-} */
+}

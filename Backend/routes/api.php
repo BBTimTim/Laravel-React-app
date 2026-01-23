@@ -23,14 +23,14 @@ Route::post('/register', [GuestController::class, 'register']);
 
 Route::post('/login', [GuestController::class, 'login']);
 
-Route::patch('/updateData', [UserController::class, 'updateData'])->middleware('auth:sanctum');
+Route::patch('/updatedata', [UserController::class, 'updatedata'])->middleware('auth:sanctum');
 
 Route::post('/logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
- 
-/* Route::post('forgot-password', [UserController::class, 'forgotPassword']);
 
-Route::post('reset-password', [UserController::class, 'resetPassword'])->name('password.reset');
-  */
+Route::post('/forgetpassword', [GuestController::class, 'forgetpassword']);
+
+Route::post('/resetpassword', [GuestController::class, 'resetpassword']);
+  
 
 /* Route::get('/forgot-password', function () {
     return view('auth.forgot-password');
@@ -51,4 +51,3 @@ Route::post('reset-password', [UserController::class, 'resetPassword'])->name('p
     // Token has the "check-status" or "place-orders" ability...
 })->middleware(['auth:sanctum', 'ability:check-status,place-orders']); */
 
-// Preflight handler minden API útvonalra

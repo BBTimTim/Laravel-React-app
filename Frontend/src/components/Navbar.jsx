@@ -7,6 +7,9 @@ import toggle_light from '../assets/night.png'
 import search_icon_dark from '../assets/search-b.png'
 import search_icon_light from '../assets/search-w.png'
 import { useNavigate } from 'react-router-dom';
+import config from '../config';
+
+const { api_url } = config;
 
 const Navbar = ({ theme, setTheme }) => {
 
@@ -18,7 +21,7 @@ const navigate = useNavigate();
     if(!logoutResult) {
       return;
     }
-      fetch('http://codiva.fejlessz.hu/api/logout', {
+      fetch (`${api_url}/logout`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer `+localStorage.getItem('token'),
