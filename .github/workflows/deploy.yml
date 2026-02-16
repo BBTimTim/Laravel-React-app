@@ -1,0 +1,27 @@
+name: Deploy Laravel Docker
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      - name: Deploy Docker Compose
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: docker-compose -f docker-compose.yml up -d --build
+
+      - name: Run Laravel migrations
+        run: docker-compose exec backend php artisan migrate --force
