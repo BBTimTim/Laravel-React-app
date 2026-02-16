@@ -13,15 +13,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Docker
-        uses: docker/setup-buildx-action@v2
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
 
-      - name: Deploy Docker Compose
-        env:
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        run: docker-compose -f docker-compose.yml up -d --build
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./frontend
 
-      - name: Run Laravel migrations
-        run: docker-compose exec backend php artisan migrate --force
+      - name: Build frontend
+        run: npm run build
+        working-directory: ./frontend
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.4.0
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./frontend/dist   
+          server-dir: /public_html/codessence
+          protocol: ftp
+          port: 21
